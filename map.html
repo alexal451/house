@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mappa delle recensioni</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 100vh; /* La mappa occupa tutta la finestra */
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script>
+    // Inizializza la mappa centrata su un'area (esempio: Europa)
+    var map = L.map('map').setView([51.505, -0.09], 4); // [Latitudine, Longitudine], Zoom iniziale
+
+    // Aggiungi il layer della mappa
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Marker di esempio - Recensioni
+    var reviews = [
+      {
+        coords: [48.8566, 2.3522], // Parigi
+        title: "Stanza accogliente a Parigi",
+        description: "Proprietario gentile, ma la zona è rumorosa.",
+        rating: 4
+      },
+      {
+        coords: [41.9028, 12.4964], // Roma
+        title: "Stanza nel centro storico di Roma",
+        description: "Ottima posizione, ma arredamento datato.",
+        rating: 3
+      },
+      {
+        coords: [40.4168, -3.7038], // Madrid
+        title: "Camera a Madrid",
+        description: "Pulita e tranquilla, ma il proprietario è difficile da contattare.",
+        rating: 3
+      }
+    ];
+
+    // Aggiungi i marker sulla mappa
+    reviews.forEach(review => {
+      L.marker(review.coords).addTo(map)
+        .bindPopup(`<b>${review.title}</b><br>${review.description}<br>Valutazione: ${review.rating}/5`);
+    });
+  </script>
+</body>
+</html>
